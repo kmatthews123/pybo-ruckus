@@ -70,6 +70,12 @@ class bot:
             inbot.health = 10
         return inbot
 
+    def botAttack(inbot: bot, attackedbot: bot, lazerdmg=1):
+        if inbot.position:
+            return print(inbot.position)
+        pass
+
+
 def main():
     gameboard = board("basic", (10, 10))
     jeffbot = bot("jeffbot", [1,7], 10, 0)
@@ -104,5 +110,5 @@ def main():
     for i in range(3):
         bot.botRepair(jeffbot, 1)
     print(bot.returnbot(jeffbot))
-    
+
 main()

@@ -56,16 +56,23 @@ class bot:
     def takeDamage(inbot: bot ) -> dict:
         if bot.botDeadCheck(inbot) == False:
             inbot.health -= 1
-        else:
-            return "bot dead"
+            return print("bot took damage")
+        elif bot.botDeadCheck(inbot) == True:
+            return print("bot dead")
 
     def botDeadCheck(inbot: bot) -> bool:
-        print(inbot.health > 0)
+        #print(inbot.health <= 0)
         return inbot.health <= 0
+
+    def botRepair(inbot: bot, repairpoints: int) -> dict:
+        inbot.health += repairpoints
+        if inbot.health >= 10:
+            inbot.health = 10
+        return inbot
 
 def main():
     gameboard = board("basic", (10, 10))
-    jeffbot = bot("jeffbot", [1,7], 2, 0)
+    jeffbot = bot("jeffbot", [1,7], 10, 0)
     craigbot = bot("craigbot", [1,7], 10, 5)
     print(bot.returnbot(jeffbot))
     bot.fwdMv(jeffbot, 1)
@@ -91,12 +98,11 @@ def main():
     bot.backup(jeffbot)
     bot.backup(jeffbot)
     bot.backup(jeffbot)
+    for i in range(12):
+        print(bot.returnbot(jeffbot))
+        bot.takeDamage(jeffbot)
+    for i in range(3):
+        bot.botRepair(jeffbot, 1)
     print(bot.returnbot(jeffbot))
-    bot.takeDamage(jeffbot)
-    bot.takeDamage(jeffbot)
-    bot.takeDamage(jeffbot)
-    print(bot.returnbot(jeffbot))
-
-
-
+    
 main()

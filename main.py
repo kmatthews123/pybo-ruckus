@@ -16,8 +16,6 @@ class board:
             #print("fell off board")
         return onboard
 
-
-
 class bot:
     def __init__(self, name: str, position: list, health: int, direction: int):
         self.name = name
@@ -44,24 +42,31 @@ class bot:
         return inbot
 
     def rotate(inbot: bot, increment: int) -> dict:    
-        return inbot
+        inbot.direction = (inbot.direction + increment) % 4
+        return print("direction updated")
     
-    # def rotate(inbot: bot) -> dict:
-    #     pass
-    #     #return outbot
-    
-    # def UTurn(inbot: bot) -> dict:
-    #     pass
-    #     #return outbot
-    
-    # def backupOne(inbot: bot) -> dict:
-    #     pass
-    #     #return outbot
+    def uTurn(inbot: bot) -> dict:
+        bot.rotate(inbot, 2)
+        return print("U Turn has occured")
+
+    def backup(inbot: bot) -> dict:
+        bot.fwdMv(inbot, -1)
+
+    # bot health stuff
+    def takeDamage(inbot: bot ) -> dict:
+        if bot.botDeadCheck(inbot) == False:
+            inbot.health -= 1
+        else:
+            return "bot dead"
+
+    def botDeadCheck(inbot: bot) -> bool:
+        print(inbot.health > 0)
+        return inbot.health <= 0
 
 def main():
     gameboard = board("basic", (10, 10))
-    jeffbot = bot("gobert", [1,7], 10, 0)
-    craigbot = bot("beeboop", [1,7], 10, 5)
+    jeffbot = bot("jeffbot", [1,7], 2, 0)
+    craigbot = bot("craigbot", [1,7], 10, 5)
     print(bot.returnbot(jeffbot))
     bot.fwdMv(jeffbot, 1)
     bot.fwdMv(jeffbot, 2)
@@ -74,7 +79,24 @@ def main():
     bot.fwdMv(jeffbot, 1)
     print(bot.returnbot(jeffbot))
     print(board.check_on_board(gameboard, jeffbot.position))
-    #print(bot.returnbot(craigbot))
-    #bot.fwdMv(craigbot, 1)
+    bot.fwdMv
+    bot.rotate(jeffbot, 1)
+    print(bot.returnbot(jeffbot))
+    bot.uTurn(jeffbot)
+    print(bot.returnbot(jeffbot))
+    bot.rotate(jeffbot, 1)
+    print(bot.returnbot(jeffbot))
+    bot.backup(jeffbot)
+    bot.backup(jeffbot)
+    bot.backup(jeffbot)
+    bot.backup(jeffbot)
+    bot.backup(jeffbot)
+    print(bot.returnbot(jeffbot))
+    bot.takeDamage(jeffbot)
+    bot.takeDamage(jeffbot)
+    bot.takeDamage(jeffbot)
+    print(bot.returnbot(jeffbot))
+
+
 
 main()
